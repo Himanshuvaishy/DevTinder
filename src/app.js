@@ -1,24 +1,33 @@
 const express = require("express");
 const app = express();
+  const {adminAuth,UserAuth}=require("../middlewares/auth");
 
+//app.use("/admin",adminAuth);
+// app.use("/user",UserAuth);
 
-app.get("/user/:id/:firstName/:lastName",(req,res)=>{
-    //fetching data
-    res.send({firstName:"Himanshu",lastName:"vaishy"});
+app.get("/admin/getallUser",adminAuth,(req,res,next)=>{
 
-      console.log(req.query);// print query 
-    console.log(req.params);// handle dyanamic route 
-    
-    
+  res.send("all data get");
+
+})
+
+app.get("/user/allData", UserAuth,(req,res)=>{
+  res.send("user response is getting")
+
+})
+
+app.get("/user/login",(req,res,next)=>{
+
+  res.send("user is successfully logged in");
+
+})
+
+app.get("/admin/DeleteUser",adminAuth,(req,res)=>{
+  res.send("Delete a User");
+
 })
 
 
-
-
-app.post("/user",(req,res)=>{
-    //saving data 
-    res.send("data is saved to database");
-})
 
 app.listen(7777, () => {
   console.log("app is listening");
