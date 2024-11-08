@@ -1,34 +1,33 @@
 const express = require("express");
+const connectDB = require("./config/database.js");
+const User = require("./models/user.js");
 const app = express();
-  const {adminAuth,UserAuth}=require("../middlewares/auth");
 
-//app.use("/admin",adminAuth);
-// app.use("/user",UserAuth);
+app.post("/signup", async (req, res) => {
+  const dummyData = {
+    firstName: "Himanshu",
+    lastName: "vaishy",
+    email: "vaish@83170",
+    password: "1234",
+  };
 
-app.get("/admin/getallUser",adminAuth,(req,res,next)=>{
+  const user = new User(dummyData);
 
-  res.send("all data get");
-
-})
-
-app.get("/user/allData", UserAuth,(req,res)=>{
-  res.send("user response is getting")
-
-})
-
-app.get("/user/login",(req,res,next)=>{
-
-  res.send("user is successfully logged in");
-
-})
-
-app.get("/admin/DeleteUser",adminAuth,(req,res)=>{
-  res.send("Delete a User");
-
-})
-
-
-
-app.listen(7777, () => {
-  console.log("app is listening");
+  try {
+    await user.save();
+    res.send("data saved successfully");
+  } catch (err) {
+    res.send("something went wrong");
+  }
 });
+
+connectDB()
+  .then(() => {
+    console.log("connect DB successsful");
+    app.listen(7777, () => {
+      console.log("app is listening");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
