@@ -5,7 +5,7 @@ const validationSignUp=(req)=>{
     const {firstName,lastName,email,password}=req.body;
 
     if(!firstName || !lastName){
-        throw new Error("Name is vot valid")
+        throw new Error("Name is not valid")
     }
 
     else if(firstName.length <4 || firstName.length >50){
