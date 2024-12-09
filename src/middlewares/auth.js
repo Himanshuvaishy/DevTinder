@@ -17,7 +17,7 @@ const UserAuth = async  (req, res, next) => {
   const { _id } = decodedData;
 
   const user =  await User.findById(_id);
-  console.log(user);
+  //console.log(user);
   
 
   if (!user) {

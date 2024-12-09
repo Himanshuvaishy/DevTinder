@@ -19,6 +19,7 @@ const  RequestRouter =require("./routes/request.js")
 
 app.use("/",authRouter);
 app.use("/",profileRouter);
+app.use("/",RequestRouter);
 
 
 
