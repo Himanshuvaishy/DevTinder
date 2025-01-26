@@ -22,17 +22,25 @@ router.get("/profile/view", UserAuth, async (req, res) => {
 
 router.patch("/profile/edit", UserAuth, async (req, res) => {
   try {
+    
+
+    //console.log("Received profile edit request with data:", req.body);
     if (!validateEditProfile(req)) {
+     
+      
       throw new Error(" Invalid Edit Request");
     }
     
     // !validate req body data
+    //console.log(validateProfileEditData(req));
+    
     validateProfileEditData(req);
 
     const loggedInUser = req.user;
     // console.log(loggedInUser);
     // ! first way to update
     // ? Object.keys(req.body).forEach((key) => (loggedInUser[key] = req.body[key]));
+
     // ! second way to update
     Object.assign(loggedInUser, req.body);
 

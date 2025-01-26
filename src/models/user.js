@@ -52,7 +52,8 @@ const userSchema=new mongoose.Schema({
         }
     },
     photoUrl:{
-        type:String
+        type:String,
+        default:"http://localhost:7777/public/images/myimage.jpg"
     },
     about:{
         type:String,

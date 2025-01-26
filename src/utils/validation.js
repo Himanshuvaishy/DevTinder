@@ -8,7 +8,7 @@ const validationSignUp=(req)=>{
         throw new Error("Name is not valid")
     }
 
-    else if(firstName.length <4 || firstName.length >50){
+    else if(firstName.length <2 || firstName.length >50){
         throw new Error("charcter must be between in 4-50");
     }
 
@@ -24,7 +24,14 @@ const validationSignUp=(req)=>{
 
 const validateEditProfile=(req)=>{
 
-    const allowedEditField = ["photoUrl", "age","gender","about","skills"]
+    const allowedEditField = [    "firstName",
+      "lastName",
+      "emailId",
+      "photoUrl",
+      "gender",
+      "age",
+      "about",
+      "skills",]
      // ! there are different way to write logic
     
 
@@ -63,30 +70,33 @@ const validateEditProfile=(req)=>{
 }
 
 
-const validateProfileEditData=(req)=>{
- // Validation logic for req.body
- const { photoUrl, age, gender, about, skills } = req.body;
+const validateProfileEditData = (req) => {
+ // console.log('Request body for validation:', req.body);
+  const { photoUrl, age, gender, about, skills } = req.body;
 
- // Example validation
- if (photoUrl && !validator.isURL(photoUrl)) {
-   throw new Error("Invalid photo URL format.");
- }
-   if (age && (!Number.isInteger(Number(age)) || Number(age) < 0)) {
+  // Example validation
+ 
+
+  if (age && (!Number.isInteger(Number(age)) || Number(age) < 0)) {
+   // console.log("Invalid age:", age);
     throw new Error("Age must be a positive integer.");
   }
- if (gender && !["male", "female", "other"].includes(gender)) {
-   throw new Error("Gender must be 'male', 'female', or 'other'.");
- }
- if (about && !validator.isLength(about, { max: 500 })) {
-   throw new Error("About section must be less than 500 characters.");
- }
- if (skills && !Array.isArray(skills)) {
-   throw new Error("Skills must be an array.");
- }
- if (skills.length > 10) {
+  if (gender && !["male", "female", "other"].includes(gender)) {
+    //console.log("Invalid gender:", gender);
+    throw new Error("Gender must be 'male', 'female', or 'other'.");
+  }
+  if (about && !validator.isLength(about, { max: 500 })) {
+    //console.log("Invalid about text:", about);
+    throw new Error("About section must be less than 500 characters.");
+  }
+  if (skills && !Array.isArray(skills)) {
+    //console.log("Invalid skills:", skills);
+    throw new Error("Skills must be an array.");
+  }
+  if (skills && skills.length > 10) {
+   // console.log("Too many skills:", skills);
     throw new Error("You can only add up to 10 skills.");
   }
-
-}
+};
 
 module.exports={validationSignUp,validateEditProfile,validateProfileEditData};
