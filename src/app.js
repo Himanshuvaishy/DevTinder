@@ -32,13 +32,16 @@ app.use("/",profileRouter);
 app.use("/",RequestRouter);
 app.use("/",userRouter)
 
+const PORT = process.env.PORT || 3000;
+
 connectDB()
   .then(() => {
-    console.log("connect DB successsful");
-    app.listen(process.env.PORT, () => {
-      console.log("app is listening");
+    console.log("✅ Connected to MongoDB successfully");
+    app.listen(PORT, () => {
+      console.log(`🚀 Server is running on port ${PORT}`);
     });
   })
   .catch((err) => {
-    console.log(err);
+    console.error("❌ Failed to connect to MongoDB", err);
+    process.exit(1); // Optional: exit app if DB connection fails
   });
