@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config()
 const cookieParser = require("cookie-parser");
 const path = require('path');
 
@@ -34,7 +35,7 @@ app.use("/",userRouter)
 connectDB()
   .then(() => {
     console.log("connect DB successsful");
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("app is listening");
     });
   })

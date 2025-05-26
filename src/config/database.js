@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
+console.log( process.env.DB_CONNECTION_KEY);
+
 
 const connectDB = async () => {
   await mongoose.connect(
-    "mongodb+srv://Himanshu:Him83170@cluster0.xbqv2.mongodb.net/devTinder"
+    process.env.DB_CONNECTION_KEY
+    
   );
 };
 

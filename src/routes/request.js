@@ -42,7 +42,7 @@ router.post("/request/send/:status/:toUserId", UserAuth, async (req, res) => {
     }
 
     if(toUserId == fromUserId){
-      throw new Error("can not send reuest to yourself")
+      throw new Error("can not send request to yourself")
     }
     
 

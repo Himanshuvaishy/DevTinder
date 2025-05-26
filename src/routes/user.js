@@ -81,7 +81,7 @@ userRouter.get("/feed", UserAuth, async (req, res) => {
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
     }).select("fromUserId toUserId");
 
-    console.log("Connection Requests for New User:", connectionRequests);
+    //console.log("Connection Requests for New User:", connectionRequests);
 
     const hideUsersFromFeed = new Set();
 
@@ -89,7 +89,7 @@ userRouter.get("/feed", UserAuth, async (req, res) => {
       hideUsersFromFeed.add(req.fromUserId.toString());
       hideUsersFromFeed.add(req.toUserId.toString());
     });
-    console.log(hideUsersFromFeed);
+   // console.log(hideUsersFromFeed);
 
     const users = await User.find({
       $and: [
@@ -107,7 +107,7 @@ userRouter.get("/feed", UserAuth, async (req, res) => {
       "skills",
     ]).skip(skip).limit(limit);
 
-    console.log("Users Found:", users);
+   /// console.log("Users Found:", users);
 
     res.send(users);
   } catch (err) {}
