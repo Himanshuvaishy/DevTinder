@@ -14,12 +14,25 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 // ! this is a middleware which covert our json into js object
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin:"https://developerstinder.netlify.app/",
-  credentials:true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH','OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
 
+
+const allowedOrigins = [
+  "https://developerstinder.netlify.app",
+  "http://localhost:5173"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl/postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 const authRouter=require("./routes/auth.js");
